@@ -1,47 +1,47 @@
-﻿# Attendance Management System
+﻿<div align="center">
 
-[![Java](https://img.shields.io/badge/Java-17%2B-007396)](https://adoptium.net/) [![Build](https://img.shields.io/badge/Build-Maven-ff69b4)](https://maven.apache.org/) ![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20macOS-lightgrey)
+# Attendance Management System
 
-A clean and beginner‑friendly desktop app for taking and managing classroom attendance. Built with Java (Swing/JFrame), packaged with Maven, and ready for small teams or personal use.
+Make attendance painless. Simple. Fast. Visual.
 
----
+[![Java](https://img.shields.io/badge/Java-17%2B-007396?logo=java&logoColor=white)](https://adoptium.net/) [![Build](https://img.shields.io/badge/Build-Maven-FF69B4?logo=apache-maven&logoColor=white)](https://maven.apache.org/) ![Platform](https://img.shields.io/badge/Platform-Windows%20|%20Linux%20|%20macOS-lightgrey) [![PRs](https://img.shields.io/badge/PRs-welcome-success)](#contributing)
 
-## Table of Contents
-- [Features](#features)
-- [Demo / Screenshots](#demo--screenshots)
-- [Getting Started](#getting-started)
-  - [Windows (easy)](#windows-easy)
-  - [Any OS (terminal)](#any-os-terminal)
-- [Configuration](#configuration)
-- [Project Structure](#project-structure)
-- [Build and Run Scripts](#build-and-run-scripts)
-- [Troubleshooting](#troubleshooting)
-- [Roadmap](#roadmap)
-- [Contributing](#contributing)
-- [License](#license)
+</div>
+
+<p align="center">
+  <a href="#features">Features</a> ·
+  <a href="#getting-started">Install & Run</a> ·
+  <a href="#configuration">Config</a> ·
+  <a href="#demo--screenshots">Screenshots</a> ·
+  <a href="#roadmap">Roadmap</a> ·
+  <a href="#faq">FAQ</a>
+</p>
 
 ---
 
-## Features
-- Fast attendance marking
-- Student and subject management
-- QR code check‑in/out
-- Optional face detection (OpenCV)
-- Simple authentication
-- Export basic reports
+## Why you'll love it
+- 🚀 Ultra‑fast attendance marking (QR + optional face detection)
+- 🧭 Clean, beginner‑friendly setup and scripts
+- 🧑‍🎓 Students, Subjects, Users — all in one place
+- 📦 Single JAR packaging (Maven Shade)
+- 🧰 Works offline; MySQL optional (H2 fallback for dev)
+
+---
 
 ## Demo / Screenshots
-> Add your screenshots to `docs/images/` and update the paths below.
+> Add your screenshots to `docs/images/` and update paths below.
 
-![Login](docs/images/login.png)
-![Dashboard](docs/images/dashboard.png)
+<p align="center">
+  <img src="docs/images/login.png" alt="Login" width="420"/>
+  <img src="docs/images/dashboard.png" alt="Dashboard" width="420"/>
+</p>
 
 ---
 
 ## Getting Started
 
-### Windows (easy)
-- Double‑click `run-app.bat` to build and start the app
+### Windows (one‑click)
+- Double‑click `run-app.bat` to build and start
 - Already built? Use `run-standalone.bat`
 
 Default admin (first run):
@@ -54,73 +54,100 @@ mvn -q -DskipTests clean package
 java -jar target/attendance-app.jar
 ```
 
+<details>
+<summary><strong>Advanced: build from source with Maven</strong></summary>
+
+```bash
+# Clean build
+mvn clean package
+
+# Run with Maven exec
+mvn -q exec:java -Dexec.mainClass=com.ams.App
+```
+</details>
+
 ---
 
 ## Configuration
 - Copy: `src/main/resources/config.example.properties` → `src/main/resources/config.properties`
-- Using MySQL? Update DB URL, username, password there
-- Not using MySQL? Dev mode can fall back to an embedded H2 database
-- Database schema (MySQL): `src/db/schema.sql`
+- Using MySQL? Update DB URL, username, password
+- MySQL schema: `src/db/schema.sql`
 
-OpenCV and webcam tips:
-- Close other apps that might be using the camera
-- Ensure your webcam drivers are installed and accessible
+```properties
+# src/main/resources/config.properties
+# Database
+db.url=jdbc:mysql://localhost:3306/attendance
+db.user=your_user
+db.password=your_password
+
+# Optional: face/QR toggles
+feature.qr=true
+feature.face=true
+```
+
+Tips for camera/OpenCV:
+- Close other camera apps; ensure drivers are installed
+- Good lighting improves recognition
 
 ---
 
 ## Project Structure
 ```
 attendance-management-system/
-├─ pom.xml                     # Maven build configuration
+├─ pom.xml
 ├─ src/
 │  ├─ main/
-│  │  ├─ java/                # Application source code
-│  │  └─ resources/           # Config + resources
+│  │  ├─ java/                # App source code
+│  │  └─ resources/           # Config + assets
 │  └─ db/
-│     └─ schema.sql           # Database schema (MySQL)
-├─ run-app.bat                # Build and run (Windows)
+│     └─ schema.sql           # MySQL schema
+├─ run-app.bat                # Build & run (Windows)
 └─ run-standalone.bat         # Run built JAR (Windows)
 ```
 
 ---
 
-## Build and Run Scripts
-- `run-app.bat` — builds (with Maven) then launches the app
-- `run-standalone.bat` — runs `target/attendance-app.jar` if it already exists
-
-Equivalent commands:
-```bash
-mvn -q -DskipTests clean package
-java -jar target/attendance-app.jar
-```
-
----
-
 ## Troubleshooting
-- Build fails? Check:
-  - `java -version` → must be 17+
-  - `mvn -version` works and is on PATH
-- Webcam doesn’t start? Close other camera apps, try a different USB port
-- MySQL not connecting? Verify credentials and that the DB is running
+- Build fails? Check `java -version` (17+) and `mvn -version`
+- Webcam not working? Close other apps; try a different USB port
+- DB errors? Verify credentials and DB is running
 
 ---
 
 ## Roadmap
-- Better reporting and export options
-- Attendance analytics (daily/weekly summaries)
-- Improved face detection workflow and accuracy
-- Dark/light theme toggle
+- [ ] Better reports and CSV/XLSX exports
+- [ ] Attendance analytics (daily/weekly)
+- [ ] Theming (light/dark)
+- [ ] Improved face detection workflow
+- [ ] Installer for Windows (msi)
 
 ---
 
 ## Contributing
-Contributions are welcome. To propose a change:
 1. Fork the repo
-2. Create a feature branch: `git checkout -b feature/my-change`
-3. Commit your changes: `git commit -m "Describe change"`
+2. `git checkout -b feature/my-change`
+3. Commit: `git commit -m "Describe change"`
 4. Push and open a Pull Request
+
+> New to Git? Start with: `git add -A && git commit -m "msg" && git push`
+
+---
+
+## FAQ
+**Q: Do I need MySQL to try it?**  
+A: No — dev mode can use an embedded H2 database.
+
+**Q: Camera doesn’t start?**  
+A: Close other apps using the camera; check drivers.
+
+**Q: Which Java version?**  
+A: Java 17 or newer.
 
 ---
 
 ## License
-Consider adding a `LICENSE` file (MIT is a simple and popular choice) if you plan to share/redistribute this project.
+Add a `LICENSE` file if you plan to share/redistribute (MIT is a simple, permissive choice).
+
+<p align="center">
+  ⭐ If this project helps you, consider starring the repo!
+</p>

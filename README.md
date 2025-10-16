@@ -1,81 +1,126 @@
 ﻿# Attendance Management System
 
-A friendly desktop app to record and manage classroom attendance. Built with Java (Swing/JFrame) and Maven. This README is written for beginners.
+[![Java](https://img.shields.io/badge/Java-17%2B-007396)](https://adoptium.net/) [![Build](https://img.shields.io/badge/Build-Maven-ff69b4)](https://maven.apache.org/) ![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20macOS-lightgrey)
+
+A clean and beginner‑friendly desktop app for taking and managing classroom attendance. Built with Java (Swing/JFrame), packaged with Maven, and ready for small teams or personal use.
 
 ---
 
-## Quick Start
+## Table of Contents
+- [Features](#features)
+- [Demo / Screenshots](#demo--screenshots)
+- [Getting Started](#getting-started)
+  - [Windows (easy)](#windows-easy)
+  - [Any OS (terminal)](#any-os-terminal)
+- [Configuration](#configuration)
+- [Project Structure](#project-structure)
+- [Build and Run Scripts](#build-and-run-scripts)
+- [Troubleshooting](#troubleshooting)
+- [Roadmap](#roadmap)
+- [Contributing](#contributing)
+- [License](#license)
 
-Windows (easy):
+---
+
+## Features
+- Fast attendance marking
+- Student and subject management
+- QR code check‑in/out
+- Optional face detection (OpenCV)
+- Simple authentication
+- Export basic reports
+
+## Demo / Screenshots
+> Add your screenshots to `docs/images/` and update the paths below.
+
+![Login](docs/images/login.png)
+![Dashboard](docs/images/dashboard.png)
+
+---
+
+## Getting Started
+
+### Windows (easy)
 - Double‑click `run-app.bat` to build and start the app
-- If it’s already built, you can use `run-standalone.bat`
+- Already built? Use `run-standalone.bat`
 
-Any OS (terminal):
+Default admin (first run):
+- Username: `Husnu_007`
+- Password: `MSD007`
+
+### Any OS (terminal)
 ```bash
 mvn -q -DskipTests clean package
 java -jar target/attendance-app.jar
 ```
 
-First‑run admin login:
-- Username: `Husnu_007`
-- Password: `MSD007`
+---
+
+## Configuration
+- Copy: `src/main/resources/config.example.properties` → `src/main/resources/config.properties`
+- Using MySQL? Update DB URL, username, password there
+- Not using MySQL? Dev mode can fall back to an embedded H2 database
+- Database schema (MySQL): `src/db/schema.sql`
+
+OpenCV and webcam tips:
+- Close other apps that might be using the camera
+- Ensure your webcam drivers are installed and accessible
 
 ---
 
-## What You Can Do
-- Manage students and subjects
-- Mark attendance fast (QR code + optional face detection)
-- View/export attendance records
-- Simple login/authentication
-
----
-
-## Setup (optional but recommended)
-- Copy config: `src/main/resources/config.example.properties` → `src/main/resources/config.properties`
-- Using MySQL? Update DB URL, user, password there
-- No MySQL? Dev mode can fall back to embedded H2
-
-Database schema (if using MySQL): see `src/db/schema.sql`
-
----
-
-## Project Tour
-- `src/main/java` — source code
-- `src/main/resources` — resources + config
-- `pom.xml` — Maven build file
-- `run-app.bat` — build and run (Windows)
-- `run-standalone.bat` — run the built JAR (Windows)
-
----
-
-## Build Tips
-- Check Java and Maven:
-  - `java -version` shows 17+
-  - `mvn -version` works
-- Close other camera apps if webcam/face detection won’t start
-
----
-
-## Git Basics (for beginners)
-Save and push your changes:
-```bash
-git add -A
-git commit -m "Describe what you changed"
-git push
+## Project Structure
 ```
-Create a new branch:
-```bash
-git checkout -b feature/my-change
+attendance-management-system/
+├─ pom.xml                     # Maven build configuration
+├─ src/
+│  ├─ main/
+│  │  ├─ java/                # Application source code
+│  │  └─ resources/           # Config + resources
+│  └─ db/
+│     └─ schema.sql           # Database schema (MySQL)
+├─ run-app.bat                # Build and run (Windows)
+└─ run-standalone.bat         # Run built JAR (Windows)
 ```
-Pull latest:
+
+---
+
+## Build and Run Scripts
+- `run-app.bat` — builds (with Maven) then launches the app
+- `run-standalone.bat` — runs `target/attendance-app.jar` if it already exists
+
+Equivalent commands:
 ```bash
-git pull
+mvn -q -DskipTests clean package
+java -jar target/attendance-app.jar
 ```
+
+---
+
+## Troubleshooting
+- Build fails? Check:
+  - `java -version` → must be 17+
+  - `mvn -version` works and is on PATH
+- Webcam doesn’t start? Close other camera apps, try a different USB port
+- MySQL not connecting? Verify credentials and that the DB is running
+
+---
+
+## Roadmap
+- Better reporting and export options
+- Attendance analytics (daily/weekly summaries)
+- Improved face detection workflow and accuracy
+- Dark/light theme toggle
 
 ---
 
 ## Contributing
-Ideas, issues, and pull requests are welcome.
+Contributions are welcome. To propose a change:
+1. Fork the repo
+2. Create a feature branch: `git checkout -b feature/my-change`
+3. Commit your changes: `git commit -m "Describe change"`
+4. Push and open a Pull Request
+
+---
 
 ## License
-Add a LICENSE file if you plan to share/redistribute (MIT is a simple choice).
+Consider adding a `LICENSE` file (MIT is a simple and popular choice) if you plan to share/redistribute this project.

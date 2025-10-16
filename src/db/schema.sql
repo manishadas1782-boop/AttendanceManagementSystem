@@ -1,0 +1,46 @@
+-- Attendance Management System schema (MySQL)
+
+CREATE DATABASE IF NOT EXISTS attendance_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE attendance_db;
+
+-- Users
+CREATE TABLE IF NOT EXISTS users (
+  id BIGINT PRIMARY KEY AUTO_INCREMENT,
+  username VARCHAR(100) NOT NULL UNIQUE,
+  password_hash VARCHAR(255) NOT NULL,
+  role VARCHAR(50) NOT NULL DEFAULT 'USER',
+  photo_path VARCHAR(255) NULL,
+  official_email VARCHAR(255) NULL,
+  registration_number VARCHAR(100) NULL,
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB;
+
+-- QR codes assigned to users (optional lookup)
+CREATE TABLE IF NOT EXISTS qr_codes (
+  id BIGINT PRIMARY KEY AUTO_INCREMENT,
+  user_id BIGINT NOT NULL,
+  qr_data VARCHAR(255) NOT NULL,
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  CONSTRAINT fk_qr_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+-- Subjects
+CREATE TABLE IF NOT EXISTS subjects (
+  id BIGINT PRIMARY KEY AUTO_INCREMENT,
+  name VARCHAR(255) NOT NULL,
+  code VARCHAR(50) NOT NULL UNIQUE,
+  description TEXT NULL,
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB;
+
+-- Attendance records
+CREATE TABLE IF NOT EXISTS attendance_records (
+  id BIGINT PRIMARY KEY AUTO_INCREMENT,
+  user_id BIGINT NOT NULL,
+  subject_id BIGINT NOT NULL,
+  status ENUM('PRESENT','ABSENT','LATE') NOT NULL DEFAULT 'PRESENT',
+  marked_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  source ENUM('QR','CAMERA','MANUAL') NOT NULL DEFAULT 'QR',
+  CONSTRAINT fk_att_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+  CONSTRAINT fk_att_subject FOREIGN KEY (subject_id) REFERENCES subjects(id) ON DELETE CASCADE
+) ENGINE=InnoDB;

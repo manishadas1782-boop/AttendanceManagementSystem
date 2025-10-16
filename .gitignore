@@ -1,0 +1,46 @@
+# Maven
+/target/
+!.mvn/wrapper/maven-wrapper.jar
+.mvn/
+
+# Java
+*.class
+*.log
+*.jar
+*.war
+*.ear
+hs_err_pid*
+
+# IDEs
+.nb-gradle/
+nbproject/private/
+build/
+dist/
+nbbuild/
+nbdist/
+.nbm/
+
+.idea/
+*.iml
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Local config
+src/main/resources/config.properties
+
+# Generated assets and uploads
+qrs/
+uploads/
+# Dev H2 database files
+/devdb.mv.db
+/devdb.trace.db
+captured/
+out/
+
+# Archives and local tool bundles
+*.zip
+apache-maven-*/
+maven.zip
